@@ -57,4 +57,4 @@ const pintarProductos = (listadoProductos) => {
             bebidas$$.innerHTML += productoHTML;
         }
     }
-};
+}
