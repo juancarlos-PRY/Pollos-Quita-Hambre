@@ -1,6 +1,10 @@
 const PUBLICAR$$ = document.querySelector("button");
 
-const PRODUCTOS = [];
+const menuForm$$ = document.querySelector(".menu-form");
+const form$$ = document.querySelector("form");
+
+const PRODUCTOS = JSON.parse(localStorage.getItem("products")) || [];
+let formVisible = false;
 
 const crearProducto = () => {
     const nombre$$ = document.querySelector("#nombre");
@@ -18,11 +22,11 @@ const crearProducto = () => {
     PRODUCTOS.push(newProducto);
 
     console.log(PRODUCTOS);
-
+    localStorage.setItem("products", JSON.stringify(PRODUCTOS));
     pintarProductos(PRODUCTOS);
 }
 
-PUBLICAR$$.addEventListener("click", crearProducto);
+
 
 const pintarProductos = (listadoProductos) => {
     const hamburguesas$$ = document.querySelector(".hamburguesas");
@@ -57,4 +61,19 @@ const pintarProductos = (listadoProductos) => {
             bebidas$$.innerHTML += productoHTML;
         }
     }
+};
+
+const toggleForm = () => {
+    if(formVisible) {
+        form$$.classList.add("no-visible");
+        formVisible = false;
+    } else {
+        form$$.classList.remove("no-visible");
+        formVisible = true;
+    }
 }
+
+PUBLICAR$$.addEventListener("click", crearProducto);
+menuForm$$.addEventListener("click", toggleForm);
+
+pintarProductos(PRODUCTOS);
